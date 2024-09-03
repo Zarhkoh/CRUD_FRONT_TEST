@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpRequest } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Tutorial } from '../models/tutorial.model';
 
@@ -37,5 +37,24 @@ export class TutorialService {
 
   findByTitle(title: any): Observable<Tutorial[]> {
     return this.http.get<Tutorial[]>(`${baseUrl}?title=${title}`);
+  }
+
+  // File upload method using HttpRequest and HttpClient
+  upload(file: File): Observable<HttpEvent<any>> {
+    const formData: FormData = new FormData();
+    formData.append('file', file);
+
+    // Create an HttpRequest for file upload
+    const req = new HttpRequest('POST', `${baseUrl}/upload`, formData, {
+      reportProgress: true,
+      responseType: 'json',
+    });
+
+    return this.http.request(req);
+  }
+
+  // Method to get all uploaded files
+  getFiles(): Observable<any> {
+    return this.http.get(`${baseUrl}/files`);
   }
 }

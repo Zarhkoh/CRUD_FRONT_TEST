@@ -1,17 +1,17 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Tutorial } from '../../models/tutorial.model';
-import { TutorialService } from '../../services/tutorial.service';
+import { Article } from '../../models/article.model';
+import { ArticleService } from '../../services/article.service';
 
 @Component({
-  selector: 'app-tutorial-details',
-  templateUrl: './tutorial-details.component.html',
-  styleUrls: ['./tutorial-details.component.css'],
+  selector: 'app-article-details',
+  templateUrl: './article-details.component.html',
+  styleUrls: ['./article-details.component.css'],
 })
-export class TutorialDetailsComponent implements OnInit {
+export class ArticleDetailsComponent implements OnInit {
   @Input() viewMode = false;
 
-  @Input() currentTutorial: Tutorial = {
+  @Input() currentArticle: Article = {
     title: '',
     description: '',
     published: false,
@@ -21,7 +21,7 @@ export class TutorialDetailsComponent implements OnInit {
   message = '';
 
   constructor(
-    private tutorialService: TutorialService,
+    private articleService: ArticleService,
     private route: ActivatedRoute,
     private router: Router
   ) {}
@@ -29,14 +29,14 @@ export class TutorialDetailsComponent implements OnInit {
   ngOnInit(): void {
     if (!this.viewMode) {
       this.message = '';
-      this.getTutorial(this.route.snapshot.params['id']);
+      this.getArticle(this.route.snapshot.params['id']);
     }
   }
 
-  getTutorial(id: string): void {
-    this.tutorialService.get(id).subscribe({
+  getArticle(id: string): void {
+    this.articleService.get(id).subscribe({
       next: (data) => {
-        this.currentTutorial = data;
+        this.currentArticle = data;
         console.log(data);
       },
       error: (e) => console.error(e)
@@ -45,17 +45,17 @@ export class TutorialDetailsComponent implements OnInit {
 
   updatePublished(status: boolean): void {
     const data = {
-      title: this.currentTutorial.title,
-      description: this.currentTutorial.description,
+      title: this.currentArticle.title,
+      description: this.currentArticle.description,
       published: status
     };
 
     this.message = '';
 
-    this.tutorialService.update(this.currentTutorial.id, data).subscribe({
+    this.articleService.update(this.currentArticle.id, data).subscribe({
       next: (res) => {
         console.log(res);
-        this.currentTutorial.published = status;
+        this.currentArticle.published = status;
         this.message = res.message
           ? res.message
           : 'The status was updated successfully!';
@@ -64,27 +64,27 @@ export class TutorialDetailsComponent implements OnInit {
     });
   }
 
-  updateTutorial(): void {
+  updateArticle(): void {
     this.message = '';
 
-    this.tutorialService
-      .update(this.currentTutorial.id, this.currentTutorial)
+    this.articleService
+      .update(this.currentArticle.id, this.currentArticle)
       .subscribe({
         next: (res) => {
           console.log(res);
           this.message = res.message
             ? res.message
-            : 'This tutorial was updated successfully!';
+            : 'This article was updated successfully!';
         },
         error: (e) => console.error(e)
       });
   }
 
-  deleteTutorial(): void {
-    this.tutorialService.delete(this.currentTutorial.id).subscribe({
+  deleteArticle(): void {
+    this.articleService.delete(this.currentArticle.id).subscribe({
       next: (res) => {
         console.log(res);
-        this.router.navigate(['/tutorials']);
+        this.router.navigate(['/articles']);
       },
       error: (e) => console.error(e)
     });

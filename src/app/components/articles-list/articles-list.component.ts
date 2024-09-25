@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Article } from '../../models/article.model';
 import { ArticleService } from '../../services/article.service';
+import { Router } from '@angular/router'; // Importer Router pour la navigation
 
 @Component({
   selector: 'app-articles-list',
@@ -13,7 +14,7 @@ export class ArticlesListComponent implements OnInit {
   currentIndex = -1;
   title = '';
 
-  constructor(private articleService: ArticleService) {}
+  constructor(private articleService: ArticleService, private router: Router) {} // Injecter Router
 
   ngOnInit(): void {
     this.retrieveArticles();
@@ -40,6 +41,17 @@ export class ArticlesListComponent implements OnInit {
     this.currentIndex = index;
   }
 
+  // Nouvelle méthode pour supprimer l'article sélectionné
+  removeArticle(id: number): void {
+    this.articleService.delete(id).subscribe({
+      next: (res) => {
+        console.log(res);
+        this.refreshList(); // Rafraîchir la liste après suppression
+      },
+      error: (e) => console.error(e)
+    });
+  }
+
   removeAllArticles(): void {
     this.articleService.deleteAll().subscribe({
       next: (res) => {
@@ -62,4 +74,10 @@ export class ArticlesListComponent implements OnInit {
       error: (e) => console.error(e)
     });
   }
+
+  // Nouvelle méthode pour naviguer vers la page de détails de l'article
+// Dans ArticlesListComponent
+editArticle(article: Article): void {
+  this.router.navigate(['/articles', article.id], { queryParams: { edit: true } });
+}
 }

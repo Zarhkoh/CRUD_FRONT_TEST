@@ -12,13 +12,16 @@ export class ArticleDetailsComponent implements OnInit {
   @Input() viewMode = false;
 
   @Input() currentArticle: Article = {
+    id: null,
     title: '',
     description: '',
     published: false,
-    image:''
+    image: '',
   };
 
   message = '';
+  editMode: boolean = false; // Variable pour le mode d'édition
+  selectedFile: File | null = null; // Pour stocker le fichier sélectionné
 
   constructor(
     private articleService: ArticleService,
@@ -30,6 +33,11 @@ export class ArticleDetailsComponent implements OnInit {
     if (!this.viewMode) {
       this.message = '';
       this.getArticle(this.route.snapshot.params['id']);
+
+      // Vérifiez si le mode d'édition est activé
+      this.route.queryParams.subscribe(params => {
+        this.editMode = params['edit'] === 'true';
+      });
     }
   }
 
@@ -39,45 +47,12 @@ export class ArticleDetailsComponent implements OnInit {
         this.currentArticle = data;
         console.log(data);
       },
-      error: (e) => console.error(e)
+      error: (e) => console.error(e),
     });
   }
 
-  updatePublished(status: boolean): void {
-    const data = {
-      title: this.currentArticle.title,
-      description: this.currentArticle.description,
-      published: status
-    };
-
-    this.message = '';
-
-    this.articleService.update(this.currentArticle.id, data).subscribe({
-      next: (res) => {
-        console.log(res);
-        this.currentArticle.published = status;
-        this.message = res.message
-          ? res.message
-          : 'The status was updated successfully!';
-      },
-      error: (e) => console.error(e)
-    });
-  }
-
-  updateArticle(): void {
-    this.message = '';
-
-    this.articleService
-      .update(this.currentArticle.id, this.currentArticle)
-      .subscribe({
-        next: (res) => {
-          console.log(res);
-          this.message = res.message
-            ? res.message
-            : 'This article was updated successfully!';
-        },
-        error: (e) => console.error(e)
-      });
+  editArticle(): void {
+    this.router.navigate(['/articles', this.currentArticle.id], { queryParams: { edit: true } });
   }
 
   deleteArticle(): void {
@@ -86,7 +61,45 @@ export class ArticleDetailsComponent implements OnInit {
         console.log(res);
         this.router.navigate(['/articles']);
       },
-      error: (e) => console.error(e)
+      error: (e) => console.error(e),
     });
+  }
+
+  updateArticle(): void {
+    // Vérifiez que tous les champs nécessaires sont remplis
+    if (!this.currentArticle.title || !this.currentArticle.description) {
+      alert("Le titre et la description sont obligatoires !");
+      return; // Ne pas procéder si les champs obligatoires ne sont pas remplis
+    }
+
+    const formData = new FormData();
+
+    formData.append('title', this.currentArticle.title); // Toujours défini
+    formData.append('description', this.currentArticle.description); // Toujours défini
+    formData.append('published', this.currentArticle.published ? 'true' : 'false'); // Convertir en string
+
+    // Ajouter le fichier s'il existe
+    if (this.selectedFile) {
+      formData.append('image', this.selectedFile, this.selectedFile.name);
+    }
+
+    this.articleService.update(this.currentArticle.id, formData).subscribe({
+      next: (res) => {
+        console.log(res);
+        this.message = "L'article a été mis à jour avec succès.";
+      },
+      error: (e) => {
+        console.error(e);
+        this.message = "Erreur lors de la mise à jour de l'article.";
+      }
+    });
+  }
+
+
+
+  selectFile(event: any): void {
+    if (event.target.files && event.target.files[0]) {
+      this.selectedFile = event.target.files[0]; // Enregistre le fichier sélectionné
+    }
   }
 }

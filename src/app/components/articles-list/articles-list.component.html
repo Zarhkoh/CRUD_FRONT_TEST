@@ -4,7 +4,7 @@
       <input
         type="text"
         class="form-control"
-        placeholder="Search by title"
+        placeholder="Taper le titre de l'article"
         [(ngModel)]="title"
       />
       <div class="input-group-append">
@@ -13,29 +13,35 @@
           type="button"
           (click)="searchTitle()"
         >
-          Search
+          Rechercher
         </button>
       </div>
     </div>
   </div>
+
   <div class="col-md-6">
-    <h4>Tutorials List</h4>
+    <h4>Tous les articles</h4>
     <ul class="list-group">
-      @for (article of articles; track article.id; let i = $index) {
-      <li
-        class="list-group-item"
-        [class.active]="i == currentIndex"
-        (click)="setActiveArticle(article, i)"
-      >
+      <li *ngFor="let article of articles; let i = index"
+          class="list-group-item"
+          [class.active]="i == currentIndex"
+          (click)="setActiveArticle(article, i)">
         {{ article.title }}
+        <button class="btn btn-warning btn-sm float-right" (click)="editArticle(article)">Modifier</button>
       </li>
-      }
     </ul>
 
     <button class="m-3 btn btn-sm btn-danger" (click)="removeAllArticles()">
-      Remove All
+      Tout supprimer
+    </button>
+
+    <!-- Nouveau bouton pour supprimer l'article sélectionné -->
+    <button class="m-3 btn btn-sm btn-danger" (click)="removeArticle(currentArticle.id)"
+            [disabled]="currentIndex === -1">
+      Supprimer l'article sélectionné
     </button>
   </div>
+
   <div class="col-md-6">
     <app-article-details
       [viewMode]="true"

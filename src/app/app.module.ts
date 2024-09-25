@@ -14,6 +14,11 @@ import { ArticleDetailsComponent } from './components/article-details/article-de
 // Make sure the file path is correct and the file exists in the specified location
 import { ArticlesListComponent } from './components/articles-list/articles-list.component';
 import { HomeComponent } from './components/home/home.component';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
+import { ProfileComponent } from './profile/profile.component';
+import { BoardAdminComponent } from './board-admin/board-admin.component';
+import { BoardUserComponent } from './board-user/board-user.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +26,12 @@ import { HomeComponent } from './components/home/home.component';
     AddArticleComponent,
     ArticleDetailsComponent,
     ArticlesListComponent,
-    HomeComponent
+    HomeComponent,
+    LoginComponent,
+    RegisterComponent,
+    ProfileComponent,
+    BoardAdminComponent,
+    BoardUserComponent
   ],
   imports: [
     BrowserModule,

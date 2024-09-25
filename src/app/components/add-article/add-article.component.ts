@@ -14,6 +14,7 @@ export class AddArticleComponent {
     image: null as File | null
   };
   submitted = false;
+  previewImage: string | ArrayBuffer | null = null;  // Pour stocker l'aperçu de l'image
 
   constructor(private articleService: ArticleService) {}
 
@@ -30,6 +31,7 @@ export class AddArticleComponent {
       next: (res) => {
         console.log(res);
         this.submitted = true;
+        this.previewImage = null; // Réinitialise l'aperçu de l'image
       },
       error: (e) => console.error(e)
     });
@@ -43,11 +45,20 @@ export class AddArticleComponent {
       published: false,
       image: null
     };
+    this.previewImage = null; // Réinitialise l'aperçu de l'image
   }
 
   selectFile(event: any): void {
-    if (event.target.files.length > 0) {
-      this.article.image = event.target.files[0];
+    if (event.target.files && event.target.files[0]) {
+      const file = event.target.files[0];
+      this.article.image = file;
+
+      // Générer l'aperçu de l'image
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.previewImage = e.target.result;
+      };
+      reader.readAsDataURL(file);
     }
   }
 }

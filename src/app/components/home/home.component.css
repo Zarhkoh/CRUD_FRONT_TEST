@@ -1,11 +1,7 @@
+/* home.component.css */
 .container {
-  margin-top: 50px;
-}
-
-.card {
-  padding: 20px;
-}
-
-.text-center {
-  margin-top: 15px;
+  height: 100vh; /* Prend toute la hauteur de la fenêtre */
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Centre le contenu verticalement */
 }

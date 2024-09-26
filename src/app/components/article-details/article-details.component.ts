@@ -74,19 +74,21 @@ export class ArticleDetailsComponent implements OnInit {
 
     const formData = new FormData();
 
-    formData.append('title', this.currentArticle.title); // Toujours défini
-    formData.append('description', this.currentArticle.description); // Toujours défini
-    formData.append('published', this.currentArticle.published ? 'true' : 'false'); // Convertir en string
+    formData.append('title', this.currentArticle.title);
+    formData.append('description', this.currentArticle.description);
+    formData.append('published', this.currentArticle.published ? 'true' : 'false');
 
     // Ajouter le fichier s'il existe
     if (this.selectedFile) {
       formData.append('image', this.selectedFile, this.selectedFile.name);
     }
 
+    // Envoi de la requête de mise à jour
     this.articleService.update(this.currentArticle.id, formData).subscribe({
       next: (res) => {
         console.log(res);
         this.message = "L'article a été mis à jour avec succès.";
+        this.router.navigate(['/articles']); // Naviguer vers la liste des articles après mise à jour
       },
       error: (e) => {
         console.error(e);
@@ -94,6 +96,7 @@ export class ArticleDetailsComponent implements OnInit {
       }
     });
   }
+
 
 
 

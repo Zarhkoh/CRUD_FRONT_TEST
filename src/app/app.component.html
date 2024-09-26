@@ -1,42 +1,44 @@
 <div id="app">
   <nav class="navbar navbar-expand navbar-dark bg-dark">
-    <a href="#" class="navbar-brand">Showmylife</a>
-    <ul class="navbar-nav mr-auto" routerLinkActive="active">
+    <!-- Lien de la marque (Showmylife) -->
+    <a href="/home" class="navbar-brand">Showmylife</a>
+
+    <!-- Lien "Show" visible uniquement pour les utilisateurs connectés, juste à côté de Showmylife -->
+    <ul class="navbar-nav" *ngIf="isLoggedIn">
       <li class="nav-item">
-        <a href="/home" class="nav-link" routerLink="home">Home </a>
+        <a href="/show" class="nav-link" routerLink="show">Show</a>
       </li>
-      <li class="nav-item">
-        <a href="/add" class="nav-link" routerLink="add">add </a>
-      </li>
-      <li class="nav-item">
-        <a href="/articles" class="nav-link" routerLink="articles">article </a>
-      </li>
-      @if (showAdminBoard) {
-        <li class="nav-item">
-          <a href="/admin" class="nav-link" routerLink="admin">Admin Board</a>
-        </li>
-      }
     </ul>
 
-    @if (!isLoggedIn) {
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
-          <a href="/register" class="nav-link" routerLink="register">Sign Up</a>
-        </li>
-        <li class="nav-item">
-          <a href="/login" class="nav-link" routerLink="login">Login</a>
-        </li>
-      </ul>
-    } @else {
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
-          <a href="/profile" class="nav-link" routerLink="profile">{{ username }}</a>
-        </li>
-        <li class="nav-item">
-          <a href class="nav-link" (click)="logout()">LogOut</a>
-        </li>
-      </ul>
-    }
+    <!-- Liens supplémentaires à gauche (liens admin) -->
+    <ul class="navbar-nav mr-auto" routerLinkActive="active">
+      <li class="nav-item" *ngIf="showAdminBoard">
+        <a href="/add" class="nav-link" routerLink="add">Ajouter</a>
+      </li>
+      <li class="nav-item" *ngIf="showAdminBoard">
+        <a href="/articles" class="nav-link" routerLink="articles">Gérer</a>
+      </li>
+    </ul>
+
+    <!-- Navigation pour les utilisateurs non connectés -->
+    <ul class="navbar-nav ml-auto" *ngIf="!isLoggedIn">
+      <li class="nav-item">
+        <a href="/register" class="nav-link" routerLink="register">Sign Up</a>
+      </li>
+      <li class="nav-item">
+        <a href="/login" class="nav-link" routerLink="login">Login</a>
+      </li>
+    </ul>
+
+    <!-- Navigation pour les utilisateurs connectés -->
+    <ul class="navbar-nav ml-auto" *ngIf="isLoggedIn">
+      <li class="nav-item">
+        <a href="/profile" class="nav-link" routerLink="profile">{{ username }}</a>
+      </li>
+      <li class="nav-item">
+        <a href="#" class="nav-link" (click)="logout()">LogOut</a>
+      </li>
+    </ul>
   </nav>
 
   <div class="container">

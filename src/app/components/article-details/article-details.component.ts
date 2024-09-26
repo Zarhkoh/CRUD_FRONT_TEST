@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Article } from '../../models/article.model';
 import { ArticleService } from '../../services/article.service';
+import { StorageService } from '../../_services/storage.service'; // Importer le service de stockage
 
 @Component({
   selector: 'app-article-details',
@@ -22,11 +23,13 @@ export class ArticleDetailsComponent implements OnInit {
   message = '';
   editMode: boolean = false; // Variable pour le mode d'édition
   selectedFile: File | null = null; // Pour stocker le fichier sélectionné
+  hasAdminRole = false; // Variable pour vérifier le rôle de l'utilisateur
 
   constructor(
     private articleService: ArticleService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private storageService: StorageService // Injection du service de stockage
   ) {}
 
   ngOnInit(): void {
@@ -38,6 +41,10 @@ export class ArticleDetailsComponent implements OnInit {
       this.route.queryParams.subscribe(params => {
         this.editMode = params['edit'] === 'true';
       });
+
+      // Vérification du rôle admin
+      const user = this.storageService.getUser();
+      this.hasAdminRole = user && user.roles.includes('ROLE_ADMIN');
     }
   }
 
@@ -66,14 +73,12 @@ export class ArticleDetailsComponent implements OnInit {
   }
 
   updateArticle(): void {
-    // Vérifiez que tous les champs nécessaires sont remplis
     if (!this.currentArticle.title || !this.currentArticle.description) {
       alert("Le titre et la description sont obligatoires !");
       return; // Ne pas procéder si les champs obligatoires ne sont pas remplis
     }
 
     const formData = new FormData();
-
     formData.append('title', this.currentArticle.title);
     formData.append('description', this.currentArticle.description);
     formData.append('published', this.currentArticle.published ? 'true' : 'false');
@@ -88,7 +93,7 @@ export class ArticleDetailsComponent implements OnInit {
       next: (res) => {
         console.log(res);
         this.message = "L'article a été mis à jour avec succès.";
-        this.router.navigate(['/articles']); // Naviguer vers la liste des articles après mise à jour
+        this.router.navigate(['/articles']);
       },
       error: (e) => {
         console.error(e);
@@ -96,9 +101,6 @@ export class ArticleDetailsComponent implements OnInit {
       }
     });
   }
-
-
-
 
   selectFile(event: any): void {
     if (event.target.files && event.target.files[0]) {

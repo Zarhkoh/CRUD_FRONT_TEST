@@ -1,0 +1,19 @@
+<div class="container">
+  <h2 class="my-4">Liste des Articles</h2>
+  <div *ngIf="message" class="alert alert-danger">{{ message }}</div>
+
+  <div class="row">
+    <div class="col-sm-12 col-md-6 col-lg-4 mb-4" *ngFor="let article of articles">
+      <div class="card h-100" (click)="openModal(article)" style="cursor: pointer;">
+        <img *ngIf="article.image" [src]="article.image" class="card-img-top" alt="Article Image" style="max-height: 200px; object-fit: cover;">
+        <div class="card-body">
+          <h5 class="card-title">{{ article.title }}</h5>
+          <p class="card-text">{{ article.description }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Composant modal pour afficher l'article sélectionné -->
+  <app-article-modal [article]="selectedArticle"></app-article-modal>
+</div>

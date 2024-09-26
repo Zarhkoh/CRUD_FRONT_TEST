@@ -19,6 +19,8 @@ import { RegisterComponent } from './register/register.component';
 import { ProfileComponent } from './profile/profile.component';
 import { BoardAdminComponent } from './board-admin/board-admin.component';
 import { BoardUserComponent } from './board-user/board-user.component';
+import { ArticlesShowComponent } from './articles-show/articles-show.component';
+import { ArticleModalComponent } from './article-modal/article-modal.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,9 @@ import { BoardUserComponent } from './board-user/board-user.component';
     RegisterComponent,
     ProfileComponent,
     BoardAdminComponent,
-    BoardUserComponent
+    BoardUserComponent,
+    ArticlesShowComponent,
+    ArticleModalComponent
   ],
   imports: [
     BrowserModule,

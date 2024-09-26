@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Article } from '../../models/article.model';
 import { ArticleService } from '../../services/article.service';
-import { Router } from '@angular/router'; // Importer Router pour la navigation
+import { Router } from '@angular/router';
+import { StorageService } from '../../_services/storage.service'; // Importer le service de stockage
 
 @Component({
   selector: 'app-articles-list',
@@ -13,11 +14,20 @@ export class ArticlesListComponent implements OnInit {
   currentArticle: Article = {};
   currentIndex = -1;
   title = '';
+  hasAdminRole = false; // Variable pour vérifier le rôle de l'utilisateur
 
-  constructor(private articleService: ArticleService, private router: Router) {} // Injecter Router
+  constructor(
+    private articleService: ArticleService,
+    private router: Router,
+    private storageService: StorageService // Injection du service de stockage
+  ) {}
 
   ngOnInit(): void {
     this.retrieveArticles();
+
+    // Vérification du rôle admin
+    const user = this.storageService.getUser();
+    this.hasAdminRole = user && user.roles.includes('ROLE_ADMIN');
   }
 
   retrieveArticles(): void {
@@ -26,7 +36,7 @@ export class ArticlesListComponent implements OnInit {
         this.articles = data;
         console.log(data);
       },
-      error: (e) => console.error(e)
+      error: (e) => console.error(e),
     });
   }
 
@@ -41,14 +51,14 @@ export class ArticlesListComponent implements OnInit {
     this.currentIndex = index;
   }
 
-  // Nouvelle méthode pour supprimer l'article sélectionné
+  // Suppression d'un article par ID
   removeArticle(id: number): void {
     this.articleService.delete(id).subscribe({
       next: (res) => {
         console.log(res);
-        this.refreshList(); // Rafraîchir la liste après suppression
+        this.refreshList();
       },
-      error: (e) => console.error(e)
+      error: (e) => console.error(e),
     });
   }
 
@@ -58,7 +68,7 @@ export class ArticlesListComponent implements OnInit {
         console.log(res);
         this.refreshList();
       },
-      error: (e) => console.error(e)
+      error: (e) => console.error(e),
     });
   }
 
@@ -71,13 +81,12 @@ export class ArticlesListComponent implements OnInit {
         this.articles = data;
         console.log(data);
       },
-      error: (e) => console.error(e)
+      error: (e) => console.error(e),
     });
   }
 
-  // Nouvelle méthode pour naviguer vers la page de détails de l'article
-// Dans ArticlesListComponent
-editArticle(article: Article): void {
-  this.router.navigate(['/articles', article.id], { queryParams: { edit: true } });
-}
+  // Rediriger vers la page de modification d'un article
+  editArticle(article: Article): void {
+    this.router.navigate(['/articles', article.id], { queryParams: { edit: true } });
+  }
 }

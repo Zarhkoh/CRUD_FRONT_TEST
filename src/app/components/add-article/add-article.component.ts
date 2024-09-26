@@ -1,22 +1,33 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ArticleService } from '../../services/article.service';
+import { StorageService } from '../../_services/storage.service'; // Import du service de stockage
 
 @Component({
   selector: 'app-add-article',
   templateUrl: './add-article.component.html',
   styleUrls: ['./add-article.component.css'],
 })
-export class AddArticleComponent {
+export class AddArticleComponent implements OnInit {
   article = {
     title: '',
     description: '',
     published: false,
-    image: null as File | null
+    image: null as File | null,
   };
   submitted = false;
-  previewImage: string | ArrayBuffer | null = null;  // Pour stocker l'aperçu de l'image
+  previewImage: string | ArrayBuffer | null = null;
+  hasAdminRole = false; // Variable pour vérifier le rôle
 
-  constructor(private articleService: ArticleService) {}
+  constructor(
+    private articleService: ArticleService,
+    private storageService: StorageService // Injection du service de stockage
+  ) {}
+
+  ngOnInit(): void {
+    // Vérifier si l'utilisateur a le rôle d'administrateur
+    const user = this.storageService.getUser();
+    this.hasAdminRole = user.roles.includes('ROLE_ADMIN');
+  }
 
   saveArticle(): void {
     const formData = new FormData();
@@ -31,9 +42,9 @@ export class AddArticleComponent {
       next: (res) => {
         console.log(res);
         this.submitted = true;
-        this.previewImage = null; // Réinitialise l'aperçu de l'image
+        this.previewImage = null;
       },
-      error: (e) => console.error(e)
+      error: (e) => console.error(e),
     });
   }
 
@@ -43,9 +54,9 @@ export class AddArticleComponent {
       title: '',
       description: '',
       published: false,
-      image: null
+      image: null,
     };
-    this.previewImage = null; // Réinitialise l'aperçu de l'image
+    this.previewImage = null;
   }
 
   selectFile(event: any): void {
@@ -53,7 +64,6 @@ export class AddArticleComponent {
       const file = event.target.files[0];
       this.article.image = file;
 
-      // Générer l'aperçu de l'image
       const reader = new FileReader();
       reader.onload = (e: any) => {
         this.previewImage = e.target.result;

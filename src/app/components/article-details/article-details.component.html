@@ -24,7 +24,8 @@
       {{ currentArticle.published ? "Published" : "Pending" }}
     </div>
 
-    <button (click)="editArticle()" class="btn btn-warning">Modifier l'article</button>
+    <!-- Afficher le bouton "Modifier" uniquement si l'utilisateur a le rôle d'admin -->
+    <button *ngIf="hasAdminRole" (click)="editArticle()" class="btn btn-warning">Modifier l'article</button>
   </div>
 
   <!-- Formulaire d'édition -->
@@ -44,7 +45,9 @@
         <input type="file" (change)="selectFile($event)" class="form-control">
       </div>
       <button type="submit" class="btn btn-primary">Mettre à jour l'article</button>
-      <button type="button" (click)="deleteArticle()" class="btn btn-danger">Supprimer l'article</button>
+
+      <!-- Afficher le bouton "Supprimer" uniquement si l'utilisateur a le rôle d'admin -->
+      <button *ngIf="hasAdminRole" type="button" (click)="deleteArticle()" class="btn btn-danger">Supprimer l'article</button>
     </form>
   </div>
 </div>

@@ -29,9 +29,7 @@ export class AppComponent {
     if (this.isLoggedIn) {
       const user = this.storageService.getUser();
       this.roles = user.roles;
-
       this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
-
       this.username = user.username;
     }
 
@@ -42,20 +40,10 @@ export class AppComponent {
 
   logout(): void {
     console.log('Tentative de déconnexion...');
-    this.authService.logout().subscribe({
-      next: res => {
-        console.log('Réponse de déconnexion:', res);
-        this.storageService.clean(); // Effacez les données de l'utilisateur
-        window.location.reload(); // Rechargez la page pour actualiser l'interface
-      },
-      error: err => {
-        console.error('Erreur de déconnexion:', err);
-        alert('Erreur lors de la déconnexion.'); // Alerte à l'utilisateur
-      }
-    });
+    this.authService.logout(); // Appelle simplement le logout du service
+    window.location.reload(); // Rechargez la page pour actualiser l'interface
   }
 
-  // Méthode pour retourner à la page précédente
   goBack(): void {
     window.history.back();
   }

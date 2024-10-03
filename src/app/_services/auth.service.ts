@@ -12,16 +12,7 @@ const httpOptions = {
   providedIn: 'root',
 })
 export class AuthService {
-  private user: any; // Assurez-vous de stocker l'utilisateur connecté (par exemple dans le localStorage)
-
-  constructor(private http: HttpClient) {
-    this.user = JSON.parse(localStorage.getItem('user') || '{}'); // Exemple de récupération de l'utilisateur
-  }
-
-  // Méthode pour vérifier si l'utilisateur est admin
-  isAdmin(): boolean {
-    return this.user && this.user.roles && this.user.roles.includes('ROLE_ADMIN');
-  }
+  constructor(private http: HttpClient) {}
 
   login(username: string, password: string): Observable<any> {
     return this.http.post(
@@ -47,6 +38,6 @@ export class AuthService {
   }
 
   logout(): Observable<any> {
-    return this.http.post(AUTH_API + 'signout', {}, httpOptions);
+    return this.http.post(AUTH_API + 'signout', { }, httpOptions);
   }
 }

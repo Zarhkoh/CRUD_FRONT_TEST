@@ -1,8 +1,14 @@
 <!-- home.component.html -->
 <div class="container text-center">
-  <p class="mt-5">Bienvenue sur notre application !</p>
-  <p class="my-5">Explorez nos fonctionnalités et commencez votre voyage avec nous.</p>
+  <div class="mt-5">
+    <h1>
+      <span>Tout commence</span>
+      <span class="fade-in-text">ici</span> <!-- Ce texte aura l'effet d'apparition -->
+    </h1>
+  </div>
 
-  <button class="btn btn-primary mb-2" routerLink="/login">Login</button>
-  <button class="btn btn-secondary" routerLink="/register">Register</button>
+  <h1 class="my-5">Souvenirs, photos, histoires, inscris-toi ou connecte-toi pour consulter mon album.</h1>
+
+  <button class="btn btn-primary mb-2 w-50" routerLink="/login">Login</button>
+  <button class="btn btn-secondary w-50" routerLink="/register">Register</button>
 </div>

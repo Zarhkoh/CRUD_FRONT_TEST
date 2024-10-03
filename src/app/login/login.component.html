@@ -9,7 +9,7 @@
         novalidate
       >
         <div class="form-group">
-          <label for="username">Username</label>
+          <label for="username">Nom</label>
           <input
             type="text"
             class="form-control"
@@ -18,13 +18,14 @@
             required
             #username="ngModel"
             [ngClass]="{ 'is-invalid': f.submitted && username.errors }"
+            placeholder="Alexis"
           />
           <div *ngIf="username.errors && f.submitted" class="invalid-feedback">
             Username is required!
           </div>
         </div>
         <div class="form-group">
-          <label for="password">Password</label>
+          <label for="password">Mot de passe</label>
           <input
             type="password"
             class="form-control"
@@ -44,7 +45,7 @@
         </div>
         <div class="form-group">
           <button class="btn btn-primary btn-block">
-            Login
+            Connexion
           </button>
         </div>
         <div class="form-group">
@@ -55,7 +56,7 @@
       </form>
 
       <div class="alert alert-success" *ngIf="isLoggedIn">
-        Logged in as {{ roles }}.
+        Bienvenue {{ username }}.
       </div>
     </div>
   </div>

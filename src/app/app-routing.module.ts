@@ -8,13 +8,12 @@ import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ArticlesShowComponent } from './articles-show/articles-show.component';
-import { AuthGuard } from './guards/auth.guard'; // Importer AuthGuard
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'articles', component: ArticlesListComponent, canActivate: [AuthGuard] }, // Protégé
-  { path: 'articles/:id', component: ArticleDetailsComponent, canActivate: [AuthGuard] }, // Protégé
-  { path: 'add', component: AddArticleComponent, canActivate: [AuthGuard] }, // Protégé
+  { path: 'articles', component: ArticlesListComponent }, // Protégé retiré
+  { path: 'articles/:id', component: ArticleDetailsComponent }, // Protégé retiré
+  { path: 'add', component: AddArticleComponent }, // Protégé retiré
   { path: 'show', component: ArticlesShowComponent },
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },

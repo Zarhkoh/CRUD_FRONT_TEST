@@ -33,4 +33,11 @@ h3 {
   font-size: 1.75rem; /* Taille pour h3 */
 }
 
+.card-container {
+  border: 2px solid black; /* Ajoute une bordure noire de 2 pixels */
+  border-radius: 8px; /* Ajoute un léger arrondi aux coins */
+  padding: 20px; /* Ajoute un peu d'espace à l'intérieur du conteneur */
+}
+
+
 /* Et ainsi de suite pour h4, h5, h6 si besoin */

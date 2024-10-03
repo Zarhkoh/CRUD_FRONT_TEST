@@ -55,5 +55,8 @@ export class AppComponent {
     });
   }
 
-
+  // Méthode pour retourner à la page précédente
+  goBack(): void {
+    window.history.back();
+  }
 }

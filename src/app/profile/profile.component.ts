@@ -10,7 +10,8 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 export class ProfileComponent implements OnInit {
   currentUser: any;
-  emailForm!: FormGroup; // Utilisation du '!' pour indiquer qu'il sera défini plus tard
+  emailForm!: FormGroup; // Formulaire pour changer l'email
+  passwordForm!: FormGroup; // Formulaire pour changer le mot de passe
   message: string = '';
 
   constructor(
@@ -25,6 +26,13 @@ export class ProfileComponent implements OnInit {
     // Initialisation du formulaire pour changer l'email
     this.emailForm = this.formBuilder.group({
       newEmail: ['']
+    });
+
+    // Initialisation du formulaire pour changer le mot de passe
+    this.passwordForm = this.formBuilder.group({
+      currentPassword: [''],
+      newPassword: [''],
+      confirmPassword: ['']
     });
   }
 
@@ -45,5 +53,26 @@ export class ProfileComponent implements OnInit {
         }
       });
     }
+  }
+
+  // Méthode pour changer le mot de passe
+  onChangePassword(): void {
+    const currentPassword = this.passwordForm.get('currentPassword')?.value;
+    const newPassword = this.passwordForm.get('newPassword')?.value;
+    const confirmPassword = this.passwordForm.get('confirmPassword')?.value;
+
+    if (newPassword !== confirmPassword) {
+      this.message = "Les mots de passe ne correspondent pas.";
+      return;
+    }
+
+    this.authService.changePassword(currentPassword, newPassword).subscribe({
+      next: (response) => {
+        this.message = 'Mot de passe changé avec succès!';
+      },
+      error: (err) => {
+        this.message = err.error.message || 'Échec du changement de mot de passe.';
+      }
+    });
   }
 }

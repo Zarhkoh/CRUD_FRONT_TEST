@@ -53,6 +53,20 @@ export class AuthService {
     });
   }
 
+  changePassword(currentPassword: string, newPassword: string): Observable<any> {
+    const token = this.storageService.getUser().accessToken; // Récupérer le token JWT
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'x-access-token': token
+    });
+
+    return this.http.put(AUTH_API + 'change-password', {
+      currentPassword,
+      newPassword
+    }, { headers });
+  }
+
+
   changeEmail(newEmail: string): Observable<any> {
     const token = this.storageService.getUser().accessToken; // assurez-vous que cette méthode renvoie le bon token
     const headers = new HttpHeaders({

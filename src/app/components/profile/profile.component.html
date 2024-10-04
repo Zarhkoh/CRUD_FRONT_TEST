@@ -1,44 +1,54 @@
 <div class="container" *ngIf="currentUser">
-  <header class="jumbotron">
-    <h3><strong>{{ currentUser.username }}</strong> Profile</h3>
+  <header class="text-center">
+    <i class="fa-solid fa-user fa-3x mb-3"></i>
+    <h3>Bienvenue sur votre profil {{ currentUser.username }}</h3>
   </header>
-  <p>
-    <strong>Email:</strong> {{ currentUser.email }}
-  </p>
 
-  <!-- Formulaire pour changer l'email -->
-  <div>
-    <h4>Changer mon email</h4>
-    <form [formGroup]="emailForm" (ngSubmit)="onChangeEmail()">
-      <div class="form-group">
-        <label for="newEmail">Nouvel email</label>
-        <input type="email" id="newEmail" formControlName="newEmail" class="form-control" placeholder="Entrer le nouvel email">
+  <div class="row my-4">
+    <!-- Carte pour changer l'email -->
+    <div class="col-md-6 d-flex">
+      <div class="card flex-fill">
+        <div class="card-body">
+          <h4 class="card-title text-center">Vous souhaitez changer votre email ?</h4>
+          <form [formGroup]="emailForm" (ngSubmit)="onChangeEmail()">
+            <div class="form-group">
+              <label for="currentEmail">Adresse email actuelle</label>
+              <input type="email" id="currentEmail" formControlName="currentEmail" class="form-control" placeholder="exemple@mail.com" required>
+            </div>
+            <div class="form-group">
+              <label for="newEmail">Renseigner la nouvelle adresse ici</label>
+              <input type="email" id="newEmail" formControlName="newEmail" class="form-control" placeholder="exemple@mail.com" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Changer mon email</button>
+          </form>
+          <p *ngIf="emailMessage">{{ emailMessage }}</p> <!-- Message d'email -->
+        </div>
       </div>
-      <button type="submit" class="btn btn-primary">Changer mon email</button>
-    </form>
+    </div>
 
-    <p *ngIf="message">{{ message }}</p>
-  </div>
-
-  <!-- Formulaire pour changer le mot de passe -->
-  <div>
-    <h4>Changer mon mot de passe</h4>
-    <form [formGroup]="passwordForm" (ngSubmit)="onChangePassword()">
-      <div class="form-group">
-        <label for="currentPassword">Mot de passe actuel</label>
-        <input type="password" id="currentPassword" formControlName="currentPassword" class="form-control" placeholder="Entrer mot de passe actuel" required>
+    <!-- Carte pour changer le mot de passe -->
+    <div class="col-md-6 d-flex">
+      <div class="card flex-fill">
+        <div class="card-body">
+          <h4 class="card-title text-center">Vous souhaitez changer votre mot de passe ?</h4>
+          <form [formGroup]="passwordForm" (ngSubmit)="onChangePassword()">
+            <div class="form-group">
+              <label for="currentPassword">Entrer votre mot de passe actuel</label>
+              <input type="password" id="currentPassword" formControlName="currentPassword" class="form-control" placeholder="Mot de passe actuel" required>
+            </div>
+            <div class="form-group">
+              <label for="newPassword">Saisir votre nouveau mot de passe</label>
+              <input type="password" id="newPassword" formControlName="newPassword" class="form-control" placeholder="Nouveau mot de passe" required>
+            </div>
+            <div class="form-group">
+              <label for="confirmPassword">Confirmer votre nouveau mot de passe</label>
+              <input type="password" id="confirmPassword" formControlName="confirmPassword" class="form-control" placeholder="Nouveau mot de passe" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Changer mon mot de passe</button>
+          </form>
+          <p *ngIf="passwordMessage">{{ passwordMessage }}</p> <!-- Message de mot de passe -->
+        </div>
       </div>
-      <div class="form-group">
-        <label for="newPassword">Nouveau mot de passe</label>
-        <input type="password" id="newPassword" formControlName="newPassword" class="form-control" placeholder="Entrer le nouveau mot de passe" required>
-      </div>
-      <div class="form-group">
-        <label for="confirmPassword">Confirmer le nouveau mot de passe</label>
-        <input type="password" id="confirmPassword" formControlName="confirmPassword" class="form-control" placeholder="Confirmer le nouveau mot de passe" required>
-      </div>
-      <button type="submit" class="btn btn-primary">Changer mon mot de passe</button>
-    </form>
-
-    <p *ngIf="message">{{ message }}</p>
+    </div>
   </div>
 </div>

@@ -1,5 +1,35 @@
-/* Optionally, add some custom styles for the modal */
 .modal {
   display: block;
   background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-dialog {
+  max-width: 80%; /* Limite la largeur de la modal à 80% de la fenêtre */
+  max-height: 80vh; /* Limite la hauteur de la modal à 80% de la hauteur de la fenêtre */
+  margin: auto; /* Centre le modal */
+}
+
+.modal-content {
+  border-radius: 8px; /* Ajoute des coins arrondis */
+  overflow: hidden; /* Masque le débordement */
+  display: flex; /* Utilise flexbox pour l'alignement */
+}
+
+/* Styles pour l'image */
+.image-container {
+  flex: 1; /* Permet à l'image de prendre de l'espace */
+  display: flex;
+  justify-content: center; /* Centre l'image horizontalement */
+  align-items: center; /* Centre l'image verticalement */
+}
+
+.image-container img {
+  max-width: 100%; /* L'image ne dépassera jamais la largeur de son conteneur */
+  max-height: 70vh; /* Limite la hauteur de l'image à 70% de la hauteur de la fenêtre */
+  object-fit: contain; /* Ajuste l'image sans la déformer */
+}
+
+.description-container {
+  flex: 1; /* Permet à la description de prendre de l'espace */
+  padding: 20px; /* Ajoute un peu d'espace autour de la description */
 }

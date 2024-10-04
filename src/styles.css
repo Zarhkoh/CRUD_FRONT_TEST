@@ -15,6 +15,10 @@ h1, h2, h3, h4, h5, h6 {
   font-family: 'Just Another Hand', cursive; /* Applique la police Just Another Hand aux titres */
 }
 
+a {
+  font-family: 'Marvel', sans-serif; /* Applique la police Just Another Hand aux titres */
+}
+
 /* Applique Marvel aux paragraphes */
 p {
   font-family: 'Marvel', sans-serif; /* Applique la police Marvel aux paragraphes */
@@ -37,6 +41,11 @@ h3 {
   border: 2px solid black; /* Ajoute une bordure noire de 2 pixels */
   border-radius: 8px; /* Ajoute un léger arrondi aux coins */
   padding: 20px; /* Ajoute un peu d'espace à l'intérieur du conteneur */
+}
+
+.card {
+  border: 2px solid black; /* Ajoute une bordure noire de 2 pixels */
+  border-radius: 8px; /* Ajoute un léger arrondi aux coins */
 }
 
 

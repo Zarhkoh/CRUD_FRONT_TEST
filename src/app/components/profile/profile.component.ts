@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { StorageService } from '../../_services/storage.service';
 import { AuthService } from '../../_services/auth.service';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-profile',
@@ -12,7 +12,8 @@ export class ProfileComponent implements OnInit {
   currentUser: any;
   emailForm!: FormGroup; // Formulaire pour changer l'email
   passwordForm!: FormGroup; // Formulaire pour changer le mot de passe
-  message: string = '';
+  emailMessage: string = ''; // Message pour l'email
+  passwordMessage: string = ''; // Message pour le mot de passe
 
   constructor(
     private storageService: StorageService,
@@ -25,35 +26,49 @@ export class ProfileComponent implements OnInit {
 
     // Initialisation du formulaire pour changer l'email
     this.emailForm = this.formBuilder.group({
-      newEmail: ['']
+      currentEmail: [this.currentUser.email, [Validators.required, Validators.email]], // Email actuel pré-rempli
+      newEmail: ['', [Validators.required, Validators.email]] // Nouveau email requis
     });
 
     // Initialisation du formulaire pour changer le mot de passe
     this.passwordForm = this.formBuilder.group({
-      currentPassword: [''],
-      newPassword: [''],
-      confirmPassword: ['']
+      currentPassword: ['', Validators.required],
+      newPassword: ['', Validators.required],
+      confirmPassword: ['', Validators.required]
     });
   }
 
-  // Méthode pour changer l'email
-  onChangeEmail(): void {
-    const newEmail = this.emailForm.get('newEmail')?.value;
+// Méthode pour changer l'email
+onChangeEmail(): void {
+  const currentEmail = this.emailForm.get('currentEmail')?.value;
+  const newEmail = this.emailForm.get('newEmail')?.value;
 
-    if (newEmail) {
-      this.authService.changeEmail(newEmail).subscribe({
-        next: (response) => {
-          this.message = 'Email changed successfully!';
-          // Mise à jour du stockage local avec le nouvel email
-          this.currentUser.email = newEmail;
-          this.storageService.saveUser(this.currentUser);
-        },
-        error: (err) => {
-          this.message = err.error.message || 'Failed to change email.';
-        }
-      });
-    }
+  // Vérification si l'email actuel est correct
+  if (currentEmail !== this.currentUser.email) {
+    this.emailMessage = 'L\'adresse email actuelle est incorrecte.'; // Message d'erreur
+    return;
   }
+
+  // Vérification si le nouvel email contient un caractère '@'
+  if (!newEmail.includes('@')) {
+    this.emailMessage = 'L\'adresse email doit contenir un caractère "@".'; // Message d'erreur
+    return;
+  }
+
+  // Si tout est correct, procéder au changement d'email
+  this.authService.changeEmail(newEmail).subscribe({
+    next: (response) => {
+      this.emailMessage = 'Email changé avec succès!'; // Message de succès
+      // Mise à jour du stockage local avec le nouvel email
+      this.currentUser.email = newEmail;
+      this.storageService.saveUser(this.currentUser);
+    },
+    error: (err) => {
+      this.emailMessage = err.error.message || 'Échec du changement de mail'; // Message d'erreur pour l'email
+    }
+  });
+}
+
 
   // Méthode pour changer le mot de passe
   onChangePassword(): void {
@@ -62,16 +77,16 @@ export class ProfileComponent implements OnInit {
     const confirmPassword = this.passwordForm.get('confirmPassword')?.value;
 
     if (newPassword !== confirmPassword) {
-      this.message = "Les mots de passe ne correspondent pas.";
+      this.passwordMessage = "Les mots de passe ne correspondent pas."; // Message d'erreur pour le mot de passe
       return;
     }
 
     this.authService.changePassword(currentPassword, newPassword).subscribe({
       next: (response) => {
-        this.message = 'Mot de passe changé avec succès!';
+        this.passwordMessage = 'Mot de passe changé avec succès!'; // Message de succès pour le mot de passe
       },
       error: (err) => {
-        this.message = err.error.message || 'Échec du changement de mot de passe.';
+        this.passwordMessage = err.error.message || 'Échec du changement de mot de passe.'; // Message d'erreur pour le mot de passe
       }
     });
   }

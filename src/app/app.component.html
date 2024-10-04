@@ -1,52 +1,74 @@
-<div id="app">
-  <nav class="navbar navbar-expand navbar-dark bg-dark">
-    <!-- Lien de la marque (Showmylife) -->
-    <a class="navbar-brand">Showmylife</a>
+<nav class="navbar navbar-expand navbar-dark bg-navbar navbar-top">
+  <a class="navbar-brand">Showmylife</a>
 
-    <!-- Lien "Show" visible uniquement pour les utilisateurs connectés, juste à côté de Showmylife -->
-    <ul class="navbar-nav" *ngIf="isLoggedIn">
-      <li class="nav-item">
-        <a href="/show" class="nav-link" routerLink="show">Bibliothèque</a>
-      </li>
-    </ul>
+  <ul class="navbar-nav ml-auto" *ngIf="isLoggedIn">
+    <li class="nav-item">
+      <a href="/profile" class="nav-link" routerLink="profile">{{ username }}</a>
+    </li>
+    <li class="nav-item">
+      <a href="#" class="nav-link" (click)="logout()">Déconnexion</a>
+    </li>
+  </ul>
 
-    <!-- Liens supplémentaires à gauche (liens admin) -->
-    <ul class="navbar-nav mr-auto" routerLinkActive="active">
-      <li class="nav-item" *ngIf="showAdminBoard">
-        <a href="/add" class="nav-link" routerLink="add">Ajouter</a>
-      </li>
-      <li class="nav-item" *ngIf="showAdminBoard">
-        <a href="/articles" class="nav-link" routerLink="articles">Gérer</a>
-      </li>
-    </ul>
+  <ul class="navbar-nav ml-auto" *ngIf="!isLoggedIn">
+    <li class="nav-item">
+      <a href="/register" class="nav-link" routerLink="register">Inscription</a>
+    </li>
+    <li class="nav-item">
+      <a href="/login" class="nav-link" routerLink="login">Connexion</a>
+    </li>
+  </ul>
+</nav>
 
-    <!-- Navigation pour les utilisateurs non connectés -->
-    <ul class="navbar-nav ml-auto" *ngIf="!isLoggedIn">
-      <li class="nav-item">
-        <a href="/register" class="nav-link" routerLink="register">Inscription</a>
-      </li>
-      <li class="nav-item">
-        <a href="/login" class="nav-link" routerLink="login">Connexion</a>
-      </li>
-    </ul>
+<div class="container mt-3">
+  <router-outlet></router-outlet>
+</div>
 
-    <!-- Navigation pour les utilisateurs connectés -->
-    <ul class="navbar-nav ml-auto" *ngIf="isLoggedIn">
-      <li class="nav-item">
-        <a href="/profile" class="nav-link" routerLink="profile">{{ username }}</a>
-      </li>
-      <li class="nav-item">
-        <a href="#" class="nav-link" (click)="logout()">Déconnexion</a>
-      </li>
-    </ul>
-  </nav>
+<nav class="navbar navbar-expand navbar-dark bg-navbar fixed-bottom navbar-bottom">
+  <ul class="navbar-nav mr-auto" routerLinkActive="active" style="width: 100%;">
+    <li class="nav-item text-center" *ngIf="isLoggedIn" style="flex: 1;">
+      <a href="/show" class="nav-link" routerLink="show">
+        <div>
+          <i class="fa-solid fa-image fa-2x"></i>
+        </div>
+        <div>Bibliothèque</div>
+      </a>
+    </li>
+    <li class="nav-item text-center" *ngIf="showAdminBoard" style="flex: 1;">
+      <a href="/add" class="nav-link" routerLink="add">
+        <div>
+          <i class="fa-solid fa-plus fa-2x"></i>
+        </div>
+        <div>Ajouter</div>
+      </a>
+    </li>
+    <li class="nav-item text-center" *ngIf="showAdminBoard" style="flex: 1;">
+      <a href="/articles" class="nav-link" routerLink="articles">
+        <div>
+          <i class="fa-solid fa-gear fa-2x"></i>
+        </div>
+        <div>Gérer</div>
+      </a>
+    </li>
+    <li class="nav-item text-center" *ngIf="!isLoggedIn" style="flex: 1;">
+      <a href="/register" class="nav-link" routerLink="register">
+        <div>
+          <i class="fa-solid fa-user-plus fa-2x"></i>
+        </div>
+        <div>Inscription</div>
+      </a>
+    </li>
+    <li class="nav-item text-center" *ngIf="!isLoggedIn" style="flex: 1;">
+      <a href="/login" class="nav-link" routerLink="login">
+        <div>
+          <i class="fa-solid fa-sign-in-alt fa-2x"></i>
+        </div>
+        <div>Connexion</div>
+      </a>
+    </li>
+  </ul>
+</nav>
 
-  <div class="container">
-    <router-outlet></router-outlet>
-  </div>
-
-  <!-- Bouton de retour -->
-  <div class="text-center mt-4" *ngIf="isLoggedIn">
-    <button class="btn btn-secondary" (click)="goBack()">Retour</button>
-  </div>
+<div class="text-center mt-4" *ngIf="isLoggedIn">
+  <button class="btn btn-secondary" (click)="goBack()">Retour</button>
 </div>

@@ -43,5 +43,10 @@ h3 {
   padding: 20px; /* Ajoute un peu d'espace à l'intérieur du conteneur */
 }
 
+.card {
+  border: 2px solid black; /* Ajoute une bordure noire de 2 pixels */
+  border-radius: 8px; /* Ajoute un léger arrondi aux coins */
+}
+
 
 /* Et ainsi de suite pour h4, h5, h6 si besoin */

@@ -8,9 +8,13 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
-        <img *ngIf="article?.image" [src]="article?.image" class="img-fluid mb-3" alt="Article Image">
-        <p>{{ article?.description }}</p>
+      <div class="modal-body d-flex">
+        <div class="image-container">
+          <img *ngIf="article?.image" [src]="article?.image" class="img-fluid" alt="Article Image">
+        </div>
+        <div class="description-container">
+          <p>{{ article?.description }}</p>
+        </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" (click)="closeModal()">Fermer</button>

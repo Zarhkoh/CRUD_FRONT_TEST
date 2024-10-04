@@ -1,84 +1,74 @@
 <nav class="navbar navbar-expand navbar-dark bg-navbar navbar-top">
-  <!-- Bouton pour le mode nuit, visible pour tous -->
-  <button (click)="toggleDarkMode()" class="btn btn-link">
-    <i class="fa-solid fa-moon" *ngIf="isDarkMode"></i>
-    <i class="fa-solid fa-sun" *ngIf="!isDarkMode"></i>
-  </button>
+  <a class="navbar-brand">Showmylife</a>
 
-    <a class="navbar-brand">Showmylife</a>
+  <ul class="navbar-nav ml-auto" *ngIf="isLoggedIn">
+    <li class="nav-item">
+      <a href="/profile" class="nav-link" routerLink="profile">{{ username }}</a>
+    </li>
+    <li class="nav-item">
+      <a href="#" class="nav-link" (click)="logout()">Déconnexion</a>
+    </li>
+  </ul>
 
-    <ul class="navbar-nav ml-auto" *ngIf="isLoggedIn">
-      <!-- Affichage du nom d'utilisateur -->
-      <li class="nav-item">
-        <a href="/profile" class="nav-link" routerLink="profile">{{ username }}</a>
-      </li>
-      <li class="nav-item">
-        <a href="#" class="nav-link" (click)="logout()">Déconnexion</a>
-      </li>
-    </ul>
+  <ul class="navbar-nav ml-auto" *ngIf="!isLoggedIn">
+    <li class="nav-item">
+      <a href="/register" class="nav-link" routerLink="register">Inscription</a>
+    </li>
+    <li class="nav-item">
+      <a href="/login" class="nav-link" routerLink="login">Connexion</a>
+    </li>
+  </ul>
+</nav>
 
-    <!-- Options d'inscription et de connexion pour les utilisateurs non connectés -->
-    <ul class="navbar-nav ml-auto" *ngIf="!isLoggedIn">
-      <li class="nav-item">
-        <a href="/register" class="nav-link" routerLink="register">Inscription</a>
-      </li>
-      <li class="nav-item">
-        <a href="/login" class="nav-link" routerLink="login">Connexion</a>
-      </li>
-    </ul>
-  </nav>
+<div class="container mt-3">
+  <router-outlet></router-outlet>
+</div>
 
-  <div class="container mt-3">
-    <router-outlet></router-outlet>
-  </div>
+<nav class="navbar navbar-expand navbar-dark bg-navbar fixed-bottom navbar-bottom">
+  <ul class="navbar-nav mr-auto" routerLinkActive="active" style="width: 100%;">
+    <li class="nav-item text-center" *ngIf="isLoggedIn" style="flex: 1;">
+      <a href="/show" class="nav-link" routerLink="show">
+        <div>
+          <i class="fa-solid fa-image fa-2x"></i>
+        </div>
+        <div>Bibliothèque</div>
+      </a>
+    </li>
+    <li class="nav-item text-center" *ngIf="showAdminBoard" style="flex: 1;">
+      <a href="/add" class="nav-link" routerLink="add">
+        <div>
+          <i class="fa-solid fa-plus fa-2x"></i>
+        </div>
+        <div>Ajouter</div>
+      </a>
+    </li>
+    <li class="nav-item text-center" *ngIf="showAdminBoard" style="flex: 1;">
+      <a href="/articles" class="nav-link" routerLink="articles">
+        <div>
+          <i class="fa-solid fa-gear fa-2x"></i>
+        </div>
+        <div>Gérer</div>
+      </a>
+    </li>
+    <li class="nav-item text-center" *ngIf="!isLoggedIn" style="flex: 1;">
+      <a href="/register" class="nav-link" routerLink="register">
+        <div>
+          <i class="fa-solid fa-user-plus fa-2x"></i>
+        </div>
+        <div>Inscription</div>
+      </a>
+    </li>
+    <li class="nav-item text-center" *ngIf="!isLoggedIn" style="flex: 1;">
+      <a href="/login" class="nav-link" routerLink="login">
+        <div>
+          <i class="fa-solid fa-sign-in-alt fa-2x"></i>
+        </div>
+        <div>Connexion</div>
+      </a>
+    </li>
+  </ul>
+</nav>
 
-  <!-- Navbar en bas avec la classe "navbar-bottom" -->
-  <nav class="navbar navbar-expand navbar-dark bg-navbar fixed-bottom navbar-bottom">
-    <ul class="navbar-nav mr-auto" routerLinkActive="active" style="width: 100%;">
-      <li class="nav-item text-center" *ngIf="isLoggedIn" style="flex: 1;">
-        <a href="/show" class="nav-link" routerLink="show">
-          <div>
-            <i class="fa-solid fa-image fa-2x"></i>
-          </div>
-          <div>Bibliothèque</div>
-        </a>
-      </li>
-      <li class="nav-item text-center" *ngIf="showAdminBoard" style="flex: 1;">
-        <a href="/add" class="nav-link" routerLink="add">
-          <div>
-            <i class="fa-solid fa-plus fa-2x"></i>
-          </div>
-          <div>Ajouter</div>
-        </a>
-      </li>
-      <li class="nav-item text-center" *ngIf="showAdminBoard" style="flex: 1;">
-        <a href="/articles" class="nav-link" routerLink="articles">
-          <div>
-            <i class="fa-solid fa-gear fa-2x"></i>
-          </div>
-          <div>Gérer</div>
-        </a>
-      </li>
-      <li class="nav-item text-center" *ngIf="!isLoggedIn" style="flex: 1;">
-        <a href="/register" class="nav-link" routerLink="register">
-          <div>
-            <i class="fa-solid fa-user-plus fa-2x"></i>
-          </div>
-          <div>Inscription</div>
-        </a>
-      </li>
-      <li class="nav-item text-center" *ngIf="!isLoggedIn" style="flex: 1;">
-        <a href="/login" class="nav-link" routerLink="login">
-          <div>
-            <i class="fa-solid fa-sign-in-alt fa-2x"></i>
-          </div>
-          <div>Connexion</div>
-        </a>
-      </li>
-    </ul>
-  </nav>
-
-  <div class="text-center mt-4" *ngIf="isLoggedIn">
-    <button class="btn btn-secondary" (click)="goBack()">Retour</button>
-  </div>
-
+<div class="text-center mt-4" *ngIf="isLoggedIn">
+  <button class="btn btn-secondary" (click)="goBack()">Retour</button>
+</div>

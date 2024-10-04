@@ -14,7 +14,6 @@ export class ArticlesListComponent implements OnInit {
   currentArticle: Article = {};
   currentIndex = -1;
   title = '';
-  hasAdminRole = false; // Variable pour vérifier le rôle de l'utilisateur
 
   constructor(
     private articleService: ArticleService,
@@ -24,10 +23,6 @@ export class ArticlesListComponent implements OnInit {
 
   ngOnInit(): void {
     this.retrieveArticles();
-
-    // Vérification du rôle admin
-    const user = this.storageService.getUser();
-    this.hasAdminRole = user && user.roles.includes('ROLE_ADMIN');
   }
 
   retrieveArticles(): void {

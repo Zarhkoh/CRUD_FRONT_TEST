@@ -30,9 +30,8 @@
       >
         {{ article.title }}
 
-        <!-- Afficher les boutons uniquement si l'utilisateur a le rôle d'admin -->
+        <!-- Afficher les boutons de modification sans condition de rôle -->
         <button
-          *ngIf="hasAdminRole"
           class="btn btn-warning btn-sm float-right"
           (click)="editArticle(article)"
         >
@@ -41,9 +40,8 @@
       </li>
     </ul>
 
-    <!-- Afficher les boutons de suppression uniquement si l'utilisateur a le rôle d'admin -->
+    <!-- Afficher les boutons de suppression sans condition de rôle -->
     <button
-      *ngIf="hasAdminRole"
       class="m-3 btn btn-sm btn-danger"
       (click)="removeAllArticles()"
     >
@@ -51,7 +49,6 @@
     </button>
 
     <button
-      *ngIf="hasAdminRole"
       class="m-3 btn btn-sm btn-danger"
       (click)="removeArticle(currentArticle.id)"
       [disabled]="currentIndex === -1"

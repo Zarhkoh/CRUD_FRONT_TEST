@@ -16,7 +16,6 @@ export class AddArticleComponent implements OnInit {
   };
   submitted = false;
   previewImage: string | ArrayBuffer | null = null;
-  hasAdminRole = false; // Variable pour vérifier le rôle
 
   constructor(
     private articleService: ArticleService,
@@ -24,9 +23,7 @@ export class AddArticleComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // Vérifier si l'utilisateur a le rôle d'administrateur
-    const user = this.storageService.getUser();
-    this.hasAdminRole = user.roles.includes('ROLE_ADMIN');
+    // Pas besoin de vérifier le rôle d'administrateur
   }
 
   saveArticle(): void {

@@ -24,8 +24,8 @@
       {{ currentArticle.published ? "Published" : "Pending" }}
     </div>
 
-    <!-- Afficher le bouton "Modifier" uniquement si l'utilisateur a le rôle d'admin -->
-    <button *ngIf="hasAdminRole" (click)="editArticle()" class="btn btn-warning">Modifier l'article</button>
+    <!-- Afficher le bouton "Modifier" sans condition de rôle -->
+    <button (click)="editArticle()" class="btn btn-warning">Modifier l'article</button>
   </div>
 
   <!-- Formulaire d'édition -->
@@ -46,8 +46,8 @@
       </div>
       <button type="submit" class="btn btn-primary">Mettre à jour l'article</button>
 
-      <!-- Afficher le bouton "Supprimer" uniquement si l'utilisateur a le rôle d'admin -->
-      <button *ngIf="hasAdminRole" type="button" (click)="deleteArticle()" class="btn btn-danger">Supprimer l'article</button>
+      <!-- Afficher le bouton "Supprimer" sans condition de rôle -->
+      <button type="button" (click)="deleteArticle()" class="btn btn-danger">Supprimer l'article</button>
     </form>
   </div>
 </div>

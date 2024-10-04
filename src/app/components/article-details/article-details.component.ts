@@ -23,7 +23,6 @@ export class ArticleDetailsComponent implements OnInit {
   message = '';
   editMode: boolean = false; // Variable pour le mode d'édition
   selectedFile: File | null = null; // Pour stocker le fichier sélectionné
-  hasAdminRole = false; // Variable pour vérifier le rôle de l'utilisateur
 
   constructor(
     private articleService: ArticleService,
@@ -41,10 +40,6 @@ export class ArticleDetailsComponent implements OnInit {
       this.route.queryParams.subscribe(params => {
         this.editMode = params['edit'] === 'true';
       });
-
-      // Vérification du rôle admin
-      const user = this.storageService.getUser();
-      this.hasAdminRole = user && user.roles.includes('ROLE_ADMIN');
     }
   }
 

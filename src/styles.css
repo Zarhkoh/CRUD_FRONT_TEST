@@ -1,1 +1,43 @@
-/* You can add global styles to this file, and also import other style files */
+/* styles.css */
+@import url('https://fonts.googleapis.com/css2?family=Just+Another+Hand&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Marvel:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh; /* Assurez-vous que le corps occupe toute la hauteur de la fenêtre */
+  background: linear-gradient(to right, #1e90ff, #ff69b4); /* Dégradé du bleu au rose */
+  font-family: 'Marvel', sans-serif; /* Définit la police par défaut pour le corps */
+}
+
+/* Applique Just Another Hand aux titres */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Just Another Hand', cursive; /* Applique la police Just Another Hand aux titres */
+}
+
+/* Applique Marvel aux paragraphes */
+p {
+  font-family: 'Marvel', sans-serif; /* Applique la police Marvel aux paragraphes */
+}
+
+/* Optionnel : personnalisation des tailles de police */
+h1 {
+  font-size: 2.5rem; /* Taille pour h1 */
+}
+
+h2 {
+  font-size: 2rem; /* Taille pour h2 */
+}
+
+h3 {
+  font-size: 1.75rem; /* Taille pour h3 */
+}
+
+.card-container {
+  border: 2px solid black; /* Ajoute une bordure noire de 2 pixels */
+  border-radius: 8px; /* Ajoute un léger arrondi aux coins */
+  padding: 20px; /* Ajoute un peu d'espace à l'intérieur du conteneur */
+}
+
+
+/* Et ainsi de suite pour h4, h5, h6 si besoin */

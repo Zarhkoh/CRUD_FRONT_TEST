@@ -1,0 +1,5 @@
+/* Optionally, add some custom styles for the modal */
+.modal {
+  display: block;
+  background-color: rgba(0, 0, 0, 0.5);
+}

@@ -1,0 +1,35 @@
+/* home.component.css */
+.container {
+  height: 100vh; /* Prend toute la hauteur de la fenêtre */
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Centre le contenu verticalement */
+  align-items: center;
+  color: white; /* Texte blanc */
+}
+
+h1 {
+  text-shadow: -1px -1px 0 #000,
+               1px -1px 0 #000,
+               -1px 1px 0 #000,
+               1px 1px 0 #000; /* Contour noir */
+}
+
+.fade-in-text {
+  opacity: 0; /* Le texte est caché par défaut */
+  transition: opacity 2s ease-in; /* Transition sur 2 secondes */
+  margin-left: 5px; /* Espace entre les mots */
+}
+
+.fade-in-text.show {
+  opacity: 1; /* Le texte devient visible */
+}
+
+form {
+  max-width: 400px;
+  width: 100%;
+}
+
+button {
+  margin-top: 10px;
+}

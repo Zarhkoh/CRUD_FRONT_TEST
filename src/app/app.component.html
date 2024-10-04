@@ -1,17 +1,52 @@
-<div>
+<div id="app">
   <nav class="navbar navbar-expand navbar-dark bg-dark">
-    <a href="#" class="navbar-brand">bezKoder</a>
-    <div class="navbar-nav mr-auto">
+    <!-- Lien de la marque (Showmylife) -->
+    <a class="navbar-brand">Showmylife</a>
+
+    <!-- Lien "Show" visible uniquement pour les utilisateurs connectés, juste à côté de Showmylife -->
+    <ul class="navbar-nav" *ngIf="isLoggedIn">
       <li class="nav-item">
-        <a routerLink="tutorials" class="nav-link">Tutorials</a>
+        <a href="/show" class="nav-link" routerLink="show">Bibliothèque</a>
+      </li>
+    </ul>
+
+    <!-- Liens supplémentaires à gauche (liens admin) -->
+    <ul class="navbar-nav mr-auto" routerLinkActive="active">
+      <li class="nav-item" *ngIf="showAdminBoard">
+        <a href="/add" class="nav-link" routerLink="add">Ajouter</a>
+      </li>
+      <li class="nav-item" *ngIf="showAdminBoard">
+        <a href="/articles" class="nav-link" routerLink="articles">Gérer</a>
+      </li>
+    </ul>
+
+    <!-- Navigation pour les utilisateurs non connectés -->
+    <ul class="navbar-nav ml-auto" *ngIf="!isLoggedIn">
+      <li class="nav-item">
+        <a href="/register" class="nav-link" routerLink="register">Inscription</a>
       </li>
       <li class="nav-item">
-        <a routerLink="add" class="nav-link">Add</a>
+        <a href="/login" class="nav-link" routerLink="login">Connexion</a>
       </li>
-    </div>
+    </ul>
+
+    <!-- Navigation pour les utilisateurs connectés -->
+    <ul class="navbar-nav ml-auto" *ngIf="isLoggedIn">
+      <li class="nav-item">
+        <a href="/profile" class="nav-link" routerLink="profile">{{ username }}</a>
+      </li>
+      <li class="nav-item">
+        <a href="#" class="nav-link" (click)="logout()">Déconnexion</a>
+      </li>
+    </ul>
   </nav>
 
-  <div class="container mt-3">
+  <div class="container">
     <router-outlet></router-outlet>
+  </div>
+
+  <!-- Bouton de retour -->
+  <div class="text-center mt-4" *ngIf="isLoggedIn">
+    <button class="btn btn-secondary" (click)="goBack()">Retour</button>
   </div>
 </div>

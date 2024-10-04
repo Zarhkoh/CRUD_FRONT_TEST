@@ -14,6 +14,7 @@ export class AppComponent {
   isLoggedIn = false;
   showAdminBoard = false;
   username?: string;
+  isDarkMode = false; // État du mode nuit
 
   eventBusSub?: Subscription;
 
@@ -46,5 +47,12 @@ export class AppComponent {
 
   goBack(): void {
     window.history.back();
+  }
+
+  toggleDarkMode(): void {
+    this.isDarkMode = !this.isDarkMode; // Basculer l'état du mode nuit
+    console.log('Mode nuit activé:', this.isDarkMode); // Vérifiez l'état
+    const body = document.body;
+    body.classList.toggle('dark-mode', this.isDarkMode); // Ajouter ou retirer la classe de mode nuit
   }
 }

@@ -15,6 +15,10 @@ h1, h2, h3, h4, h5, h6 {
   font-family: 'Just Another Hand', cursive; /* Applique la police Just Another Hand aux titres */
 }
 
+a {
+  font-family: 'Marvel', sans-serif; /* Applique la police Just Another Hand aux titres */
+}
+
 /* Applique Marvel aux paragraphes */
 p {
   font-family: 'Marvel', sans-serif; /* Applique la police Marvel aux paragraphes */

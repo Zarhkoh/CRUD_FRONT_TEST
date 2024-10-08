@@ -10,7 +10,9 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { ArticlesShowComponent } from './components/articles-show/articles-show.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { AdminGuard } from './auth/admin.guard';
-import { ForbiddenComponent } from './components/forbidden/forbidden.component'; // Importer le composant 404
+import { ForbiddenComponent } from './components/forbidden/forbidden.component';
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component'; // Importer le composant ForgotPassword
+import { ResetPasswordComponent } from './components/reset-password/reset-password.component'; // Importer le composant ResetPassword
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -23,7 +25,9 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'profile', component: ProfileComponent },
   { path: '404', component: NotFoundComponent }, // Route 404 pour toutes les routes non trouvées
-  { path: '405', component: ForbiddenComponent } // Route 405 pour toutes les routes non trouvées
+  { path: '405', component: ForbiddenComponent }, // Route 405 pour l'accès interdit
+  { path: 'forgot-password', component: ForgotPasswordComponent }, // Route pour la demande de réinitialisation
+  { path: 'resetpassword', component: ResetPasswordComponent }, // Route pour la réinitialisation du mot de passe
 ];
 
 @NgModule({

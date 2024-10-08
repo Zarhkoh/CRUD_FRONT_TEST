@@ -1,7 +1,9 @@
 <div class="container" *ngIf="currentUser">
   <header class="text-center">
     <i class="fa-solid fa-user fa-3x mb-3"></i>
-    <h3>Bienvenue sur votre profil {{ currentUser.username }}</h3>
+    <h3>Bienvenue sur votre profil {{ currentUser.username }}
+      <p>Votre email est : {{ currentUser.email }}</p>
+    </h3>
   </header>
 
   <div class="row my-4">

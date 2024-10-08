@@ -23,6 +23,8 @@ import { ArticlesShowComponent } from './components/articles-show/articles-show.
 import { ArticleModalComponent } from './components/article-modal/article-modal.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { ForbiddenComponent } from './components/forbidden/forbidden.component';
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +41,9 @@ import { ForbiddenComponent } from './components/forbidden/forbidden.component';
     ArticlesShowComponent,
     ArticleModalComponent,
     NotFoundComponent,
-    ForbiddenComponent
+    ForbiddenComponent,
+    ForgotPasswordComponent,
+    ResetPasswordComponent
   ],
   imports: [
     BrowserModule,

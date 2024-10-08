@@ -48,6 +48,13 @@
             Connexion
           </button>
         </div>
+
+        <div class="form-group text-center">
+          <a routerLink="/forgot-password" class="text-muted">
+            Mot de passe oublié ?
+          </a>
+        </div>
+
         <div class="form-group">
           <div *ngIf="f.submitted && isLoginFailed" class="alert alert-danger" role="alert">
             Login failed: {{ errorMessage }}

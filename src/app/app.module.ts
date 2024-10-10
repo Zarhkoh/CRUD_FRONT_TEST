@@ -17,14 +17,13 @@ import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { ProfileComponent } from './components/profile/profile.component';
-import { BoardAdminComponent } from './board-admin/board-admin.component';
-import { BoardUserComponent } from './board-user/board-user.component';
 import { ArticlesShowComponent } from './components/articles-show/articles-show.component';
 import { ArticleModalComponent } from './components/article-modal/article-modal.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { ForbiddenComponent } from './components/forbidden/forbidden.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
+import { UserManagementComponent } from './components/user-management/user-management.component';
 
 @NgModule({
   declarations: [
@@ -36,14 +35,13 @@ import { ResetPasswordComponent } from './components/reset-password/reset-passwo
     LoginComponent,
     RegisterComponent,
     ProfileComponent,
-    BoardAdminComponent,
-    BoardUserComponent,
     ArticlesShowComponent,
     ArticleModalComponent,
     NotFoundComponent,
     ForbiddenComponent,
     ForgotPasswordComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
+    UserManagementComponent
   ],
   imports: [
     BrowserModule,

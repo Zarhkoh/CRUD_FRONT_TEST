@@ -82,5 +82,15 @@ resetPassword(userId: string | null, token: string | null, newPassword: string):
       password: newPassword  // Le nouveau mot de passe
   }, { headers });
 }
+
+getCurrentUser(): any {
+  return this.storageService.getUser();
+}
+
+// Vérifier si l'utilisateur est admin en fonction des données utilisateur
+isAdmin(): boolean {
+  const user = this.getCurrentUser();
+  return user && user.roles && user.roles.includes('ROLE_ADMIN');
+}
 }
 

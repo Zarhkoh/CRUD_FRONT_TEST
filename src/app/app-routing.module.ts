@@ -12,7 +12,8 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
 import { AdminGuard } from './auth/admin.guard';
 import { ForbiddenComponent } from './components/forbidden/forbidden.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component'; // Importer le composant ForgotPassword
-import { ResetPasswordComponent } from './components/reset-password/reset-password.component'; // Importer le composant ResetPassword
+import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
+import { UserManagementComponent } from './components/user-management/user-management.component';// Importer le composant ResetPassword
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -27,7 +28,8 @@ const routes: Routes = [
   { path: '404', component: NotFoundComponent }, // Route 404 pour toutes les routes non trouvées
   { path: '405', component: ForbiddenComponent }, // Route 405 pour l'accès interdit
   { path: 'forgot-password', component: ForgotPasswordComponent }, // Route pour la demande de réinitialisation
-  { path: 'resetpassword', component: ResetPasswordComponent }, // Route pour la réinitialisation du mot de passe
+  { path: 'resetpassword', component: ResetPasswordComponent },
+  { path: 'users', component: UserManagementComponent, canActivate: [AdminGuard] }, // Route pour la réinitialisation du mot de passe
 ];
 
 @NgModule({

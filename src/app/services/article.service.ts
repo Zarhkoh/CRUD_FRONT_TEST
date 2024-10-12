@@ -3,7 +3,7 @@ import { HttpClient, HttpEvent, HttpRequest } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Article } from '../models/article.model';
 
-const baseUrl = 'http://localhost:8080/api/articles';
+const baseUrl = 'https://showmylife.vercel.app/api/articles';
 
 @Injectable({
   providedIn: 'root',

@@ -34,7 +34,7 @@ export class ArticlesShowComponent implements OnInit {
         this.articles = data.map(article => {
           if (article.image) {
             // Ajoutez le chemin complet du serveur
-            article.image = `https://showmylife.vercel.app/uploads/${article.image}`;
+            article.image = `https://crud-back-test.vercel.app/api/uploads/${article.image}`;
           }
           return article;
         });
@@ -59,7 +59,7 @@ export class ArticlesShowComponent implements OnInit {
         this.articles = data.map(article => {
           if (article.image) {
             // Ajoutez le chemin complet du serveur
-            article.image = `https://showmylife.vercel.app/uploads/${article.image}`;
+            article.image = `https://crud-back-test.vercel.app/api/uploads/${article.image}`;
           }
           return article;
         });

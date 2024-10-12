@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { StorageService } from './storage.service';
 
-const AUTH_API = 'https://showmylife.vercel.app/api/auth/'; // URL de l'API d'authentification
+const AUTH_API = 'https://crud-back-test.vercel.app/api/auth/'; // URL de l'API d'authentification
 
 @Injectable({
   providedIn: 'root',

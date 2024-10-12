@@ -7,7 +7,7 @@ import { Comment } from '../models/comment.model';
   providedIn: 'root'
 })
 export class CommentService {
-  private baseUrl = 'https://showmylife.vercel.app/api/articles'; // URL de base pour l'API
+  private baseUrl = 'https://crud-back-test.vercel.app/api/articles'; // URL de base pour l'API
 
   constructor(private http: HttpClient) { }
 

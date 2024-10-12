@@ -28,9 +28,15 @@ export class AppComponent {
 
     if (this.isLoggedIn) {
       const user = this.storageService.getUser();
-      this.roles = user.roles;
-      this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
-      this.username = user.username;
+
+      // Ajoutez des vérifications pour user et user.roles
+      if (user) {
+        this.roles = user.roles || []; // Utiliser un tableau vide par défaut
+        this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
+        this.username = user.username;
+      } else {
+        console.error("L'utilisateur est undefined ou n'a pas de rôles.");
+      }
     }
 
     this.eventBusSub = this.eventBusService.on('logout', () => {

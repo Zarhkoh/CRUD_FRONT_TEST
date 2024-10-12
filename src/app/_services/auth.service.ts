@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { StorageService } from './storage.service';
 
-const AUTH_API = 'http://localhost:8080/api/auth/';
+const AUTH_API = 'http://localhost:8080/api/auth/'; // URL de l'API d'authentification
 
 @Injectable({
   providedIn: 'root',
@@ -59,4 +59,38 @@ export class AuthService {
 
     return this.http.put(AUTH_API + 'change-email', { email: newEmail }, { headers });
   }
+
+  sendResetPasswordEmail(email: string): Observable<any> {
+    return this.http.post(
+        AUTH_API + 'request-password-reset',  // Utilisez la bonne route
+        { email },
+        { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) }
+    );
 }
+
+
+
+
+resetPassword(userId: string | null, token: string | null, newPassword: string): Observable<any> {
+  const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+  });
+
+  return this.http.put(`${AUTH_API}resetpassword`, {
+      id: userId,    // Assurez-vous que userId n'est pas null
+      token: token,   // Assurez-vous que token n'est pas null
+      password: newPassword  // Le nouveau mot de passe
+  }, { headers });
+}
+
+getCurrentUser(): any {
+  return this.storageService.getUser();
+}
+
+// Vérifier si l'utilisateur est admin en fonction des données utilisateur
+isAdmin(): boolean {
+  const user = this.getCurrentUser();
+  return user && user.roles && user.roles.includes('ROLE_ADMIN');
+}
+}
+
